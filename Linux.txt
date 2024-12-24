@@ -1,0 +1,48 @@
+1.Linux的静态库和动态库
+	静态库的制作方法：g++ -c -o lib库名.a  源代码的文件名。例：g++ -c -o libpublic.a 	public.cpp.lib是前缀，.a是后缀，public是库名。
+	动态库的制作方法：g++ -fPIC -shared -o lib库名.a  源代码的文件名。
+	使用方法：g++ 选项 源文件 -L库文件所在的目录 -l库名  注意：使用动态库时要查看环境变量中是否加入库文件所在的目录。
+
+2.make的使用方法
+
+3.main函数内的参数main(int argc,char *argv[],char *envp[])第三个参数设置环境变量
+
+4.gdb调试程序
+调试 core 文件的步骤如下：
+	1）用 ulimit -a 查看当前用户的资源限制参数；
+	2）用 ulimit -c unlimited 把 core file size 改为 unlimited；
+	3）运行程序，产生 core 文件；
+	4）运行 gdb 程序名 core 文件名；
+	5）在 gdb 中，用 bt 查看函数调用栈。
+
+5.gdb 调试正在运行中的程序：
+	gdb 程序名 -p 进程编号
+
+6.Linux的时间操作：
+	c++11提供了操作时间的chrono库
+	time()库函数：time()库函数用于获取操作系统的当前时间，有两种调用方法
+1）time_t now=time(0);    //将空地址传递给time()函数，并将time()函数的返回值赋给now
+2)  time_t now;time(&now); //将变量 now 的地址作为参数传递给 time()函数。
+3)  localtime()库函数，mktime()库函数，gettimeofday()库函数
+
+7.用c++对Linux目录的操作
+
+8.access()函数用于判断当前用户对目录或文件的存取权限。
+包含头文件：
+#include <unistd.h>
+函数声明：
+int access(const char *pathname, int mode);
+参数说明：
+pathname 目录或文件名。
+mode 需要判断的存取权限。在头文件<unistd.h>中的预定义如下：
+#define R_OK 4 // 判断是否有读权限。
+#define W_OK 2 // 判断是否有写权限。
+#define X_OK 1 // 判断是否有执行权限。
+#define F_OK 0 // 判断是否存在。
+返回值：
+当 pathname 满足 mode 权限返回 0，不满足返回-1，errno 被设置。
+在实际开发中，access()函数主要用于判断目录或文件是否存在。
+
+9.
+
+	
